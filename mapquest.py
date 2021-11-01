@@ -68,11 +68,11 @@ while True:
  #Asking user input for route type       
     routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
     if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
+    else:
+        print("Invalid input!")
+        break
 
-#Asking the user what road types to avoid   
-    routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
-    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
-    
+#Asking the user what road types to avoid
     avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ")
     if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
     else:
@@ -100,7 +100,7 @@ while True:
         print("=================================================")
         
         for each in json_data["route"]["legs"][0]["maneuvers"]:
-            distance = metric(each["distance"])
+            distance = length(each["distance"])
             print((each["narrative"]) + " (" + str("{:.2f}".format(distance) + " " + unit + ")"))
         print("=================================================")
 
@@ -122,6 +122,3 @@ while True:
         print("For Staus Code: " + str(json_status) + "; Refer to:")
         print("https://developer.mapquest.com/documentation/directions-api/status-codes")
         print("************************************************************************\n")
-
-
-
