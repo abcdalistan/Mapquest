@@ -32,7 +32,7 @@ while True:
     if dest == "quit" or dest == "q":
         break
     
-    unit_metric = input("Choose unit of length (m | km | mi): ") 
+    unit_metric = input("Choose unit of length [ m | km | mi ]: ") 
     if unit_metric == "quit" or unit_metric == "q": 
         break
     elif unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
@@ -45,7 +45,7 @@ while True:
         print("Invalid input!")
         break
 
-    unit_time = input("Choose unit of time (s | min | hr): ") 
+    unit_time = input("Choose unit of time [ s | min | hr ]: ") 
     if unit_time == "quit" or unit_time == "q": 
         break
     elif unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
