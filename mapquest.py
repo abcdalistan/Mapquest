@@ -14,6 +14,16 @@ def metric(dist):
 
     return distance
 
+def convert(timeRoute):
+    if unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
+        time = timeRoute
+    elif unit_time== "min" or unit_time=="minutes" or unit_time=="Minutes":
+        time = timeRoute * 0.016
+    elif unit_time== "hr" or unit_time=="hours" or unit_time=="Hours":
+        time = timeRoute * 0.0002
+
+    return time
+
 while True:
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
@@ -23,7 +33,7 @@ while True:
         break
     
     unit_metric = input("Choose unit of length (m | km | mi): ") 
-    if dest == "quit" or dest == "q": 
+    if unit_metric == "quit" or unit_metric == "q": 
         break
     elif unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
         unit = "mi"
@@ -35,6 +45,18 @@ while True:
         print("Invalid input!")
         break
 
+    unit_time = input("Choose unit of time (s | min | hr): ") 
+    if unit_time == "quit" or unit_time == "q": 
+        break
+    elif unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
+        time_unit = "s"
+    elif unit_time=="min" or unit_time=="minutes" or unit_time=="Minutes":
+        time_unit = "min"
+    elif unit_time== "hr" or unit_time=="hours" or unit_time=="Hours":
+        time_unit = "hr"
+    else:
+        print("Invalid input!")
+        break
 
     url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest}) 
     json_data = requests.get(url).json()
@@ -48,6 +70,8 @@ while True:
         print("Trip Duration:   " + (json_data["route"]["formattedTime"]))
         print("Kilometers:      " + str("{:.2f}".format((json_data["route"]["distance"])*1.61)))
         print("Fuel Used (Ltr): " + str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78)))
+        time = convert(json_data["route"]["time"])
+        print("Time: " + str("{}".format(time) + " "+ time_unit))
         print("=============================================")
         
         for each in json_data["route"]["legs"][0]["maneuvers"]:
