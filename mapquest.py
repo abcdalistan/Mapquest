@@ -8,9 +8,9 @@ def metric(dist):
     if unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
         distance = dist
     elif unit_metric=="km" or unit_metric=="kilometer" or unit_metric=="Kilometer":
-        distance =dist * 1.609
+        distance =dist * 1.61
     elif unit_metric== "m" or unit_metric=="meter" or unit_metric=="Meter":
-        distance = dist * 1609
+        distance = dist * 1610
 
     return distance
 
@@ -69,8 +69,9 @@ while True:
         print("=================================================")
         print("Directions from " + (orig) + " to " + (dest))
         time = convert(json_data["route"]["time"])
+        distance = metric(json_data["route"]["distance"])
         print("Trip Duration: " + str("{:.2f}".format(time) + " " + time_unit + " | " +(json_data["route"]["formattedTime"])))
-        print("Kilometers:      " + str("{:.2f}".format((json_data["route"]["distance"])*1.61)))
+        print("Distance:      " + str("{:.2f}".format(distance))+ " " + unit)
         print("Fuel Used (Ltr): " + str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78)))
         print("=================================================")
         
