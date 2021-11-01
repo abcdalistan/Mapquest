@@ -14,7 +14,6 @@ def metric(dist):
 
     return distance
 
-
 while True:
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
