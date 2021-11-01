@@ -45,16 +45,6 @@ while True:
         print("Invalid input!")
         break
 
-    avoid = input ("Avoid Travel Methods Conditions? (Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None): ")
-    if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
-    else:
-        print("Invalid input!")
-        break
-
-
-    routeType = input("Choose route type (fastest | shortest | pedestrian | bicycle): ")
-    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
-    
     unit_time = input("Choose unit of time [ s | min | hr ]: ") 
     if unit_time == "quit" or unit_time == "q": 
         break
@@ -68,7 +58,17 @@ while True:
         print("Invalid input!")
         break
 
-    url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "routeType":routeType,"avoids":avoid}) 
+    routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
+    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
+    
+    avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ")
+    if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
+    else:
+        print("Invalid input!")
+        break
+
+    if avoid == 'None': url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "routeType":routeType})
+    else: url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "routeType":routeType,"avoids":avoid}) 
     json_data = requests.get(url).json()
     print("URL: " + (url))
     json_data = requests.get(url).json()
@@ -88,7 +88,7 @@ while True:
         for each in json_data["route"]["legs"][0]["maneuvers"]:
             distance = metric(each["distance"])
             print((each["narrative"]) + " (" + str("{:.2f}".format(distance) + " " + unit + ")"))
-        print("=============================================")
+        print("=================================================")
 
     elif json_status == 402:
         print("**********************************************")
