@@ -34,17 +34,17 @@ while True:
     os.system('cls' if os.name in ('nt', 'dos') else 'clear')
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
-        break
+        quit()
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
-        break
+        quit()
     os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 #Asking user input for length preference
     while True:
         unit_length = input("Choose unit of length [ m | km | mi ]: ") 
         if unit_length == "quit" or unit_length == "q":   
-            break
+            quit()
         elif unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
             unit = "mi"
             break
@@ -63,7 +63,7 @@ while True:
     while True:
         unit_time = input("Choose unit of time [ s | min | hr ]: ") 
         if unit_time == "quit" or unit_time == "q": 
-            break
+            quit()
         elif unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
             time_unit = "s"
             break
