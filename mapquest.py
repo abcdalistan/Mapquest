@@ -36,8 +36,13 @@ while True:
         print("Invalid input!")
         break
 
+    routeType = input("Choose route type (fastest | shortest | pedestrian | bicycle): ")
+    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
+    else:
+        print("Invalid input!")
+        break
 
-    url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest}) 
+    url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "routeType":routeType}) 
     json_data = requests.get(url).json()
     print("URL: " + (url))
     json_data = requests.get(url).json()
