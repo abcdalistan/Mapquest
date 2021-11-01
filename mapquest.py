@@ -2,14 +2,11 @@
 import urllib.parse
 import requests
 
-#Declaring API and key variables 
+#Declaring API and key variables
 main_api = "https://www.mapquestapi.com/directions/v2/route?"
 key = "oUnfyQT0lWqlhv6zAohIjpXPibSrWQH3"
 
-#Converting length
-def metric(dist):
-    if unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
-
+#Converting length for distance
 def length(dist):
     if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
         distance = dist
@@ -20,7 +17,7 @@ def length(dist):
 
     return distance
 
-#Converting time
+#Converting time 
 def convert(timeRoute):
     if unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
         time = timeRoute
@@ -31,7 +28,7 @@ def convert(timeRoute):
 
     return time
 
-#Asking user input of starting location & destination
+#Asking user input for starting location & destination
 while True:
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
@@ -40,9 +37,9 @@ while True:
     if dest == "quit" or dest == "q":
         break
 
- #Asking user input of (m,km,mi) 
+ #Asking user input for length preference 
     unit_length = input("Choose unit of length [ m | km | mi ]: ") 
-    if unit_length == "quit" or unit_length == "q": 
+    if unit_length == "quit" or unit_length == "q":   
         break
     elif unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
         unit = "mi"
@@ -54,7 +51,7 @@ while True:
         print("Invalid input!")
         break
 
-#Asking user input of time prefernce 
+#Asking user input for time preference 
     unit_time = input("Choose unit of time [ s | min | hr ]: ") 
     if unit_time == "quit" or unit_time == "q": 
         break
@@ -68,11 +65,14 @@ while True:
         print("Invalid input!")
         break
 
- #Asking user input of route type       
+ #Asking user input for route type       
     routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
     if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
 
 #Asking the user what road types to avoid   
+    routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
+    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
+    
     avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ")
     if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
     else:
