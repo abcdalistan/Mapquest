@@ -1,6 +1,8 @@
 #Importing Libraries
 import urllib.parse
 import requests
+import os
+import getpass
 
 #Declaring API and key variables
 main_api = "https://www.mapquestapi.com/directions/v2/route?"
@@ -25,59 +27,77 @@ def convert(timeRoute):
         time = timeRoute / 60
     elif unit_time== "hr" or unit_time=="hours" or unit_time=="Hours":
         time = timeRoute / 3600
-
     return time
 
 #Asking user input for starting location & destination
 while True:
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
     orig = input("Starting Location: ")
     if orig == "quit" or orig == "q":
         break
     dest = input("Destination: ")
     if dest == "quit" or dest == "q":
         break
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
- #Asking user input for length preference 
-    unit_length = input("Choose unit of length [ m | km | mi ]: ") 
-    if unit_length == "quit" or unit_length == "q":   
-        break
-    elif unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
-        unit = "mi"
-    elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
-        unit = "km"
-    elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
-        unit = "m"
-    else:
-        print("Invalid input!")
-        break
-
+#Asking user input for length preference
+    while True:
+        unit_length = input("Choose unit of length [ m | km | mi ]: ") 
+        if unit_length == "quit" or unit_length == "q":   
+            break
+        elif unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
+            unit = "mi"
+            break
+        elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
+            unit = "km"
+            break
+        elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
+            unit = "m"
+            break
+        else:
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+            print("Invalid input!")
+            continue
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 #Asking user input for time preference 
-    unit_time = input("Choose unit of time [ s | min | hr ]: ") 
-    if unit_time == "quit" or unit_time == "q": 
-        break
-    elif unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
-        time_unit = "s"
-    elif unit_time=="min" or unit_time=="minutes" or unit_time=="Minutes":
-        time_unit = "min"
-    elif unit_time== "hr" or unit_time=="hours" or unit_time=="Hours":
-        time_unit = "hr"
-    else:
-        print("Invalid input!")
-        break
+    while True:
+        unit_time = input("Choose unit of time [ s | min | hr ]: ") 
+        if unit_time == "quit" or unit_time == "q": 
+            break
+        elif unit_time== "s" or unit_time=="seconds" or unit_time=="Seconds":
+            time_unit = "s"
+            break
+        elif unit_time=="min" or unit_time=="minutes" or unit_time=="Minutes":
+            time_unit = "min"
+            break
+        elif unit_time== "hr" or unit_time=="hours" or unit_time=="Hours":
+            time_unit = "hr"
+            break
+        else:
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+            print("Invalid input!")
+            continue
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
  #Asking user input for route type       
-    routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
-    if routeType in ('fastest','shortest','pedestrian','bicycle'): pass
-    else:
-        print("Invalid input!")
-        break
+    while True:
+        routeType = input("Choose route type [ fastest | shortest | pedestrian | bicycle ]: ")
+        if routeType in ('fastest','shortest','pedestrian','bicycle'): break
+        else:
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+            print("Invalid input!")
+            continue
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 #Asking the user what road types to avoid
-    avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ")
-    if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
-    else:
-        print("Invalid input!")
-        break
+    while True:
+        avoid = input ("What do you want to avoid? [ Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None ]: ")
+        if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): break
+        else:
+            os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+            print("Invalid input!")
+            continue
+    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 #Calling the API
     if avoid == 'None': url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "routeType":routeType})
@@ -122,3 +142,4 @@ while True:
         print("For Staus Code: " + str(json_status) + "; Refer to:")
         print("https://developer.mapquest.com/documentation/directions-api/status-codes")
         print("************************************************************************\n")
+    getpass.getpass('Press Enter to continue.')
