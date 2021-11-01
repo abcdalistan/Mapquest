@@ -36,8 +36,14 @@ while True:
         print("Invalid input!")
         break
 
+    avoid = input ("Avoid Travel Methods Conditions? (Limited Access Highway | Toll Road | Ferry | Unpaved | Approximate Seasonal Closure | Country Border Crossing | Bridge | Tunnel | None): ")
+    if avoid in ('Limited Access Highway' , 'Toll Road', 'Ferry' , 'Unpaved' , 'Approximate Seasonal Closure' , 'Country Border Crossing' , 'Bridge' , 'Tunnel', 'None'): pass
+    else:
+        print("Invalid input!")
+        break
 
-    url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest}) 
+
+    url = main_api + urllib.parse.urlencode({"key":key, "from":orig, "to":dest, "avoids":avoid}) 
     json_data = requests.get(url).json()
     print("URL: " + (url))
     json_data = requests.get(url).json()
