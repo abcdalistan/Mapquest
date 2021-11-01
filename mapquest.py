@@ -4,12 +4,12 @@ import requests
 main_api = "https://www.mapquestapi.com/directions/v2/route?"
 key = "oUnfyQT0lWqlhv6zAohIjpXPibSrWQH3"
 
-def metric(dist):
-    if unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
+def length(dist):
+    if unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
         distance = dist
-    elif unit_metric=="km" or unit_metric=="kilometer" or unit_metric=="Kilometer":
+    elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
         distance =dist * 1.61
-    elif unit_metric== "m" or unit_metric=="meter" or unit_metric=="Meter":
+    elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
         distance = dist * 1610
 
     return distance
@@ -32,14 +32,14 @@ while True:
     if dest == "quit" or dest == "q":
         break
     
-    unit_metric = input("Choose unit of length [ m | km | mi ]: ") 
-    if unit_metric == "quit" or unit_metric == "q": 
+    unit_length = input("Choose unit of length [ m | km | mi ]: ") 
+    if unit_length == "quit" or unit_length == "q": 
         break
-    elif unit_metric== "mi" or unit_metric=="miles" or unit_metric=="Miles":
+    elif unit_length== "mi" or unit_length=="miles" or unit_length=="Miles":
         unit = "mi"
-    elif unit_metric=="km" or unit_metric=="kilometer" or unit_metric=="Kilometer":
+    elif unit_length=="km" or unit_length=="kilometer" or unit_length=="Kilometer":
         unit = "km"
-    elif unit_metric== "m" or unit_metric=="meter" or unit_metric=="Meter":
+    elif unit_length== "m" or unit_length=="meter" or unit_length=="Meter":
         unit = "m"
     else:
         print("Invalid input!")
@@ -69,7 +69,7 @@ while True:
         print("=================================================")
         print("Directions from " + (orig) + " to " + (dest))
         time = convert(json_data["route"]["time"])
-        distance = metric(json_data["route"]["distance"])
+        distance = length(json_data["route"]["distance"])
         print("Trip Duration: " + str("{:.2f}".format(time) + " " + time_unit + " | " +(json_data["route"]["formattedTime"])))
         print("Distance:      " + str("{:.2f}".format(distance))+ " " + unit)
         print("Fuel Used (Ltr): " + str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78)))
