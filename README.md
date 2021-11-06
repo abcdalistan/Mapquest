@@ -19,4 +19,10 @@
   <p> 6. Final Presentation 
     <br> - Create a presentation about the project you selected and your work completing the project.
   </p>
+  
+  <h3>Breakout Room Activity 9.1 | Project Activity 4: Automated Software Testing and Deployment </h3>
+  <body>
+  <p> In this activity, you will complete the following tasks: 
+    <br> - Design an automated testing process. 
+    <br> - Implement your automated testing process.</p>
 </body>
