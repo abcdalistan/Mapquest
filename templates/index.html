@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapquest</title>
+    <style>
+      html, body {
+      min-height: 100%;
+      background-image: url('static/bg.png');
+      }
+      body, div, form, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Arial, Helvetica, sans-serif; 
+      font-size: 16px;
+      color: #666;
+      line-height: 28px;
+      }
+      h1 {text-align: center;
+       font-family: Arial, Helvetica, sans-serif; 
+       font-size: 50px  }
+      h4 {
+      margin: 25px 0 5px;
+      }
+      .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 30%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 8px; 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <form action="/route" method="POST">
+        <h1>Results</h1>
+        <h3>Directions from {{ starting_location }} to {{ destination }}</h3>
+        <h3>Trip Duration: {{time}} {{unit_time}} | {{duration}} ) </h3>
+        <h3>Distance ({{unit_length}}: {{distance}}) </h3>
+        <h3>Fuel (ltr): {{fuel}} </h3>
+        <h3>Route Type: {{route_type}} </h3>
+        <h3>Avoided: {{avoid}} </h3>
+        <h3>Route: </h3>
+        <ol>
+          {% for each in maneuvers %}
+          
+          <h5 class = ""><li>{{ each["narrative"] }}</li></h5>
+
+          {% if unit_length == "mi" %}
+          <h5 class = "">Distance: {{ "%.2f"|format(each["distance"]) }} {{ unit_length }} </h5>
+          {% elif unit_length == "km" %}
+          <h5 class = "">Distance: {{ "%.2f"|format(each["distance"] * 1.61) }} {{ unit_length }}</h5>
+          {% else %}
+          <h5 class = "">Distance: {{ "%.2f"|format(each["distance"] * 1610) }} {{ unit_length }}</h5>
+              
+          {% endif %}
+          {% endfor %}
+          </ol>
+  </body>
+</html>

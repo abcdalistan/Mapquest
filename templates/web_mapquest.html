@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapquest</title>
+    <style>
+      html, body {
+      min-height: 100%;
+      background-image: url('static/bg.png');
+      }
+      body, div, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Arial, Helvetica, sans-serif; 
+      font-size: 16px;
+      color: #666;
+      line-height: 28px;
+      }
+      h1 {text-align: center;
+       font-family: Arial, Helvetica, sans-serif; 
+       font-size: 50px  }
+      h4 {
+      margin: 25px 0 5px;
+      }
+      .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 30%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 8px; 
+      }
+      input {
+      width: auto;
+      margin-right: 15px;
+      vertical-align: middle;
+      }
+      .questions label {
+      display: block;
+      }
+      .button {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-radius: 5px; 
+      background-color: #002c37;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <form action="/index" method="POST">
+        <h1>Mapquest</h1>
+        <p>Fill out the necessary details to show the route.</p>
+        <div>
+          <h4>Starting location:</h4>
+          <input type="text" id="location" name ="starting_location" value ="{{starting_location}}"/>
+        </div>
+        <div>
+          <h4>Destination:</h4>
+          <input type="text" id="destination" name ="destination" value ="{{destination}}" />
+        </div>
+        <div>
+          <h4>Choose unit of length:</h4>
+          <div class="questions" >
+            <label><input type="radio" value="mi" id="miles" name="unit_length">Miles</label>
+            <label><input type="radio" value="km" id="kilometer" name="unit_length">Kilometer</label>
+            <label><input type="radio" value="m" id="miles" name="unit_length">Meter</label>
+          </div>
+        </div>
+        <div>
+          <h4>Choose unit of time:</h4>
+          <div class="questions">
+            <label><input type="radio" value="s" id="seconds" name="unit_time" >Seconds</label>
+            <label><input type="radio" value="min" id="minutes" name="unit_time" >Minutes</label>
+            <label><input type="radio" value="hr" id="hours" name="unit_time" >Hours</label>
+          </div>
+        <div>
+          <div>
+            <h4>Choose route type:</h4>
+            <div class="questions">
+              <label><input type="radio" value="Fastest" name="route_type" >Fastest</label>
+              <label><input type="radio" value="Shortest" name="route_type" >Shortest</label>
+              <label><input type="radio" value="Pedestrian" name="route_type" >Pedestrian</label>
+              <label><input type="radio" value="Bicycle" name="route_type" >Bicycle</label>
+            </div>
+          </div>
+          <div>
+            <h4>What do you want to avoid:</h4>
+            <div class="questions">
+              <label><input type="radio" value="Limited Access Highway" name="avoid" >Limited Access Highway</label>
+              <label><input type="radio" value="Toll Road" name="avoid" >Toll Road</label>
+              <label><input type="radio" value="Ferry" name="avoid" >Ferry</label>
+              <label><input type="radio" value="Unpaved" name="avoid" >Unpaved</label>
+              <label><input type="radio" value="Approximate Seasonal Closure" name="avoid" >Approximate Seasonal Closure</label>
+              <label><input type="radio" value="Country Border Crossing" name="avoid" >Country Border Crossing</label>
+              <label><input type="radio" value="Bridge" name="avoid" >Bridge</label>
+              <label><input type="radio" value="Tunnel" name="avoid" >Tunnel</label>
+              <label><input type="radio" value="None" name="avoid">None</label>
+            </div>
+          </div>
+          <div class="button">
+            <button type="submit" value="Submit">Submit</button>
+          </div>
+      </form>
+    </div>
+  </body>
+</html>
