@@ -7,7 +7,6 @@ import getpass
 
 app = Flask(__name__)
 
-
 #Declaring API and key variables
 main_api = "https://www.mapquestapi.com/directions/v2/route?"
 key = "oUnfyQT0lWqlhv6zAohIjpXPibSrWQH3"
