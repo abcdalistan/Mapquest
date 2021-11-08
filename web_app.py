@@ -35,7 +35,7 @@ def convert(timeRoute, unit_time):
 
 @app.route('/')
 def home():
-    return render_template('test_web.html')
+    return render_template('web_mapquest.html')
 
 @app.route('/index', methods=['GET', 'POST'])
 def route():
@@ -49,13 +49,13 @@ def route():
         avoid = request.form['avoid']
 
         if starting_location == '' or destination == '':
-            return render_template('test_web.html', starting_location = starting_location,
+            return render_template('web_mapquest.html', starting_location = starting_location,
                                                         destination = destination,
                                                         route_type = route_type,
                                                         avoid = avoid)
         
         elif unit_length == '' or unit_time == '' or route_type=='':
-                 return render_template('test_web.html', starting_location = starting_location,
+                 return render_template('web_mapquest.html', starting_location = starting_location,
                                                         destination = destination,
                                                         route_type = route_type,
                                                         avoid = avoid)                                    
@@ -74,7 +74,7 @@ def route():
     
         maneuvers= json_data["route"]["legs"][0]["maneuvers"]
 
-        return render_template('test_html.html', starting_location = starting_location,
+        return render_template('index.html', starting_location = starting_location,
                                             destination = destination,
                                             distance = distance,
                                             unit_length = unit_length,
@@ -87,7 +87,7 @@ def route():
                                             maneuvers = maneuvers
                                             )
 
-    return render_template('test_web.html')
+    return render_template('web_mapquest.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
