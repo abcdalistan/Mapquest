@@ -1,9 +1,7 @@
 #Importing Libraries
-from flask import Flask, render_template, request
+from flask import Flask, render_template,request,redirect,url_for
 import urllib.parse
 import requests
-import os
-import getpass
 
 app = Flask(__name__)
 
@@ -34,7 +32,7 @@ def convert(timeRoute, unit_time):
 
 @app.route('/')
 def home():
-    return render_template('web_mapquest.html')
+    return render_template('web_mapquest.html',invalidInput=False,missingEntry=False,unknownError=False,ueCode=0)
 
 @app.route('/index', methods=['GET', 'POST'])
 def route():
@@ -47,33 +45,21 @@ def route():
         route_type = request.form['route_type']
         avoid = request.form['avoid']
 
-        if starting_location == '' or destination == '':
-            return render_template('web_mapquest.html', starting_location = starting_location,
-                                                        destination = destination,
-                                                        route_type = route_type,
-                                                        avoid = avoid)
-        
-        elif unit_length == '' or unit_time == '' or route_type=='':
-                 return render_template('web_mapquest.html', starting_location = starting_location,
-                                                        destination = destination,
-                                                        route_type = route_type,
-                                                        avoid = avoid)                                    
-        else:
+        try:
             if avoid == "None":
                 url = main_api + urllib.parse.urlencode({"key":key, "from":starting_location, "to":destination, "routeType":route_type})
             else:
                 url = main_api + urllib.parse.urlencode({"key":key, "from":starting_location, "to":destination, "routeType":route_type,"avoids":avoid})
-    
-        json_data = requests.get(url).json()
-        json_status = json_data["info"]["statuscode"]  
-        time = str("{:.2f}".format(convert(json_data["route"]["time"], unit_time))) 
-        duration = json_data["route"]["formattedTime"] 
-        distance = str("{:.2f}".format(length(json_data["route"]["distance"], unit_length))) 
-        fuel = str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78))
-    
-        maneuvers= json_data["route"]["legs"][0]["maneuvers"]
+            json_data = requests.get(url).json()
+            json_status = json_data["info"]["statuscode"]  
+            time = str("{:.2f}".format(convert(json_data["route"]["time"], unit_time))) 
+            duration = json_data["route"]["formattedTime"] 
+            distance = str("{:.2f}".format(length(json_data["route"]["distance"], unit_length))) 
+            fuel = str("{:.2f}".format((json_data["route"]["fuelUsed"])*3.78))
 
-        return render_template('index.html', starting_location = starting_location,
+            maneuvers= json_data["route"]["legs"][0]["maneuvers"]
+
+            return render_template('index.html', starting_location = starting_location,
                                             destination = destination,
                                             distance = distance,
                                             unit_length = unit_length,
@@ -86,7 +72,11 @@ def route():
                                             maneuvers = maneuvers
                                             )
 
-    return render_template('web_mapquest.html')
+        except:
+            if json_status == 402: return render_template('web_mapquest.html',invalidInput="True")
+            elif json_status == 611: return render_template('web_mapquest.html',missingEntry="True")
+            else: return render_template('web_mapquest.html',unknownError="True",ueCode=json_status)
+    return render_template('web_mapquest.html',invalidInput=False,missingEntry=False,unknownError=False,ueCode=0)
 
 if __name__ == "__main__":
     app.run(debug=True)

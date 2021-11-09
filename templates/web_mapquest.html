@@ -64,9 +64,16 @@
       }
     </style>
   </head>
-  <body>
+  <script>
+    function errMessage(){
+      if ("{{invalidInput}}" == "True") { alert("Error 402: Invalid user inputs for one or both locations."); }
+      else if ("{{missingEntry}}" == "True") { alert("Error 611: Missing an entry for one or both locations."); }
+      else if ("{{unknownError}}" == "True") { alert("Unknown error. Please refer to the Mapquest API Status Codes\n\nError {{ueCode}}"); }
+    }
+  </script>
+  <body onload="document.mainForm.reset();errMessage();">
     <div class="box">
-      <form action="/index" method="POST">
+      <form action="/index" method="POST" name="mainForm">
         <h1>Mapquest</h1>
         <p>Fill out the necessary details to show the route.</p>
         <div>
